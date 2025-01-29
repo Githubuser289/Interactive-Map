@@ -83,15 +83,17 @@ function MainScreen() {
       });
     });
 
-    setSelectedCounty({ name: "Rezultate căutare", data: filteredResults });
+    setSelectedCounty({ name: "Rezultatele căutării", data: filteredResults });
     setSearchQuery("");
   }
 
   const handleAreaClick = (areaName) => {
-    console.log("--Ai ales județul", areaName);
     if (countiesData[areaName]) {
       console.log("Datele pentru", areaName, ":", countiesData[areaName]);
-      setSelectedCounty({ name: areaName, data: countiesData[areaName] });
+      setSelectedCounty({
+        name: `Datele pentru județul ` + areaName,
+        data: countiesData[areaName],
+      });
     } else {
       console.log("Nu s-au găsit date pentru județul selectat.");
       setSelectedCounty(null);
@@ -146,7 +148,7 @@ function MainScreen() {
       {/* TABELUL - apare doar dacă există date */}
       {selectedCounty && (
         <div className="data-table">
-          <h2>Date pentru județul {selectedCounty.name}</h2>
+          <h2>{selectedCounty.name}</h2>
           <table>
             <thead>
               <tr>
