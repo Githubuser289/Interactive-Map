@@ -58,10 +58,13 @@ function MainScreen() {
   };
 
   function handleSearch() {
-    console.log("Tip căutare:", searchType);
-    console.log("Căutare pentru:", searchQuery);
+    // console.log("Tip căutare:", searchType);
+    // console.log("Căutare pentru:", searchQuery);
 
     if (!searchQuery.trim()) {
+      // **********************************************
+      // to do: insert an alert
+      // **********************************************
       console.log("Introduceți un text pentru căutare.");
       return;
     }
@@ -89,12 +92,14 @@ function MainScreen() {
 
   const handleAreaClick = (areaName) => {
     if (countiesData[areaName]) {
-      console.log("Datele pentru", areaName, ":", countiesData[areaName]);
       setSelectedCounty({
         name: `Datele pentru județul ` + areaName,
         data: countiesData[areaName],
       });
     } else {
+      // **********************************************
+      // to do: insert an alert
+      // **********************************************
       console.log("Nu s-au găsit date pentru județul selectat.");
       setSelectedCounty(null);
     }
@@ -120,7 +125,7 @@ function MainScreen() {
                 control={
                   <Radio sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }} />
                 }
-                label="Numar"
+                label="Nr.telefon"
                 sx={{ "& .MuiTypography-root": { fontSize: "20px" } }}
               />
             </RadioGroup>
