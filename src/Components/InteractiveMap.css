@@ -1,0 +1,11 @@
+.image-map-container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+area {
+  cursor: pointer;
+}

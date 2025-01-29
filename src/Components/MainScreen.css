@@ -1,0 +1,100 @@
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: lightblue;
+}
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+}
+a:hover {
+  color: #1976d2;
+}
+.search-params {
+  display: flex;
+  gap: 20px;
+}
+
+label {
+  padding: 0 10px;
+}
+
+.search-text {
+  display: flex;
+}
+
+.search-text > input {
+  padding: 0 7px;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+}
+
+.search-text > button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  padding: 0 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  /* background-color: gray; */
+}
+
+.search-text > button:hover {
+  color: white;
+  background-color: #1976d2;
+}
+
+/* selected county table */
+h2 {
+  color: yellow;
+}
+.data-table {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  color: yellow;
+}
+
+.data-table th {
+  color: black;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+}
+
+.data-table img {
+  border-radius: 5px;
+}
+
+.back-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-button:hover {
+  color: white;
+  background-color: #1976d2;
+}

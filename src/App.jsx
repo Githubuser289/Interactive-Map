@@ -1,23 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Login from "./Components/Login";
+import MainScreen from "./Components/MainScreen";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const checkLoginData = (username, password) => {
+    // *********************
+    // to be developed later
+    // *********************
+    if (username === "a" && password === "a") {
+      return true;
+    }
+    return false;
+  };
 
   return (
-    <>
-      <h1>proiect sablon Vite + React pe GitHub pages</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-
-      </div>
-
-    </>
-  )
+    <div>
+      {!isLoggedIn ? (
+        <Login
+          onLogin={(username, password) => {
+            if (checkLoginData(username, password)) {
+              setIsLoggedIn(true);
+            } else {
+              alert("Username sau parola incorectă!");
+            }
+          }}
+        />
+      ) : (
+        <MainScreen />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
