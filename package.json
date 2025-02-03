@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://githubuser289.github.io/simple-menu/",
+  "homepage": "https://githubuser289.github.io/Interactive-Map/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
