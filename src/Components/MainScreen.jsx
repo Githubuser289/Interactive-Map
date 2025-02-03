@@ -161,7 +161,7 @@ function MainScreen() {
   return (
     <div>
       <div className="search-bar">
-        <a href="/simple-menu/">&nbsp;&nbsp; H O M E &nbsp;&nbsp;</a>
+        <a href="/Interactive-Map/">&nbsp;&nbsp; H O M E &nbsp;&nbsp;</a>
         <div className="search-params">
           <FormControl>
             <RadioGroup row value={searchType} onChange={handleChange}>
