@@ -1,9 +1,12 @@
 .search-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 10px 20px;
   background-color: lightblue;
+
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 a {
   text-decoration: none;
@@ -15,8 +18,10 @@ a:hover {
   color: #1976d2;
 }
 .search-params {
-  display: flex;
   gap: 20px;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+  }
 }
 
 label {
@@ -43,7 +48,6 @@ label {
   cursor: pointer;
   border: none;
   border-radius: 0 8px 8px 0;
-  /* background-color: gray; */
 }
 
 .search-text > button:hover {
@@ -51,6 +55,15 @@ label {
   background-color: #1976d2;
 }
 
+.list {
+  max-height: 425px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  padding-left: 50px;
+  font-size: 26px;
+  color: lightgray;
+}
 /* selected county table */
 h2 {
   color: yellow;
@@ -68,7 +81,7 @@ h2 {
 }
 
 .data-table th {
-  color: black;
+  color: grey;
 }
 
 .data-table th,
@@ -83,6 +96,40 @@ h2 {
 
 .data-table img {
   border-radius: 5px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px;
+}
+
+.person-card {
+  width: 200px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+}
+
+.person-photo {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #eee;
+}
+
+.person-details {
+  padding: 10px;
+}
+
+.person-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 5px 0;
 }
 
 .back-button {

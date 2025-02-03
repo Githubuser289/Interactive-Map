@@ -3,6 +3,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import { useMediaQuery } from "react-responsive";
 import InteractiveMap from "./InteractiveMap";
 import "./MainScreen.css";
 
@@ -11,6 +12,52 @@ function MainScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [countiesData, setCountiesData] = useState({});
   const [selectedCounty, setSelectedCounty] = useState(null);
+
+  const isTabletOrDesktop = useMediaQuery({ query: "(min-width: 768px)" });
+
+  const listOfCounties = [
+    "Alba",
+    "Arad",
+    "Arges",
+    "Bacau",
+    "Bihor",
+    "Bistrita Nasaud",
+    "Botosani",
+    "Braila",
+    "Brasov",
+    "Bucuresti",
+    "Buzau",
+    "Calarasi",
+    "Caras Severin",
+    "Cluj",
+    "Constanta",
+    "Covasna",
+    "Dambovita",
+    "Dolj",
+    "Galati",
+    "Giurgiu",
+    "Gorj",
+    "Harghita",
+    "Hunedoara",
+    "Ialomita",
+    "Iasi",
+    "Maramures",
+    "Mehedinti",
+    "Mures",
+    "Neamt",
+    "Olt",
+    "Prahova",
+    "Salaj",
+    "Satu Mare",
+    "Sibiu",
+    "Suceava",
+    "Teleorman",
+    "Timis",
+    "Tulcea",
+    "Vaslui",
+    "Valcea",
+    "Vrancea",
+  ];
 
   useEffect(() => {
     fetch(window.location.pathname + "countiesData.csv")
@@ -90,19 +137,25 @@ function MainScreen() {
     setSearchQuery("");
   }
 
-  const handleAreaClick = (areaName) => {
-    if (countiesData[areaName]) {
+  const handleCountySelection = (countyName) => {
+    if (countiesData[countyName]) {
       setSelectedCounty({
-        name: `Datele pentru județul ` + areaName,
-        data: countiesData[areaName],
+        name: `Datele pentru județul ${countyName}`,
+        data: countiesData[countyName],
       });
     } else {
-      // **********************************************
-      // to do: insert an alert
-      // **********************************************
+      // *******************************
+      // TO DO: insert an alert
+      // *******************************
       console.log("Nu s-au găsit date pentru județul selectat.");
       setSelectedCounty(null);
     }
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const [month, day, year] = dateString.split("/");
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -148,45 +201,89 @@ function MainScreen() {
         </div>
       </div>
 
-      {!selectedCounty && <InteractiveMap onAreaClick={handleAreaClick} />}
+      {!selectedCounty && isTabletOrDesktop && (
+        <InteractiveMap onAreaClick={handleCountySelection} />
+      )}
 
+      {!selectedCounty && !isTabletOrDesktop && (
+        <div className="list">
+          {listOfCounties.map((county, index) => (
+            <div
+              key={index}
+              className="county-item"
+              onClick={() => handleCountySelection(county)}
+              style={{
+                cursor: "pointer",
+                padding: "4px",
+              }}
+            >
+              {county}
+            </div>
+          ))}
+        </div>
+      )}
       {/* TABELUL - apare doar dacă există date */}
       {selectedCounty && (
         <div className="data-table">
           <h2>{selectedCounty.name}</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Nume</th>
-                <th>Prenume</th>
-                <th>Telefon</th>
-                <th>Data nașterii</th>
-                <th>Fotografie</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedCounty.data.map((person, index) => (
-                <tr key={index}>
-                  <td>{person.nume}</td>
-                  <td>{person.prenume}</td>
-                  <td>{person.telefon}</td>
-                  <td>{person.dataNasterii}</td>
-                  <td>
-                    <img
-                      src={person.fotografie}
-                      alt={`${person.nume} ${person.prenume}`}
-                      width="150"
-                    />
-                  </td>
+
+          {isTabletOrDesktop ? (
+            // Varianta tabelară pentru desktop
+            <table>
+              <thead>
+                <tr>
+                  <th>Nume</th>
+                  <th>Prenume</th>
+                  <th>Telefon</th>
+                  <th>Data nașterii</th>
+                  <th>Fotografie</th>
                 </tr>
+              </thead>
+              <tbody>
+                {selectedCounty.data.map((person, index) => (
+                  <tr key={index}>
+                    <td>{person.nume}</td>
+                    <td>{person.prenume}</td>
+                    <td>{person.telefon}</td>
+                    <td>{formatDate(person.dataNasterii)}</td>
+                    <td>
+                      <img
+                        src={person.fotografie}
+                        alt={`${person.nume} ${person.prenume}`}
+                        width="150"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            // Varianta cu carduri pentru mobil
+            <div className="cards-container">
+              {selectedCounty.data.map((person, index) => (
+                <div className="person-card" key={index}>
+                  <img
+                    src={person.fotografie}
+                    alt={`${person.nume} ${person.prenume}`}
+                    className="person-photo"
+                  />
+                  <div className="person-details">
+                    <p className="person-name">
+                      {person.nume} {person.prenume}
+                    </p>
+                    <p>Data nașterii: {formatDate(person.dataNasterii)}</p>
+                    <p>📞 {person.telefon}</p>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          )}
+
           <button
             onClick={() => setSelectedCounty(null)}
             className="back-button"
           >
-            Înapoi la hartă
+            Înapoi la {isTabletOrDesktop ? `hartă` : `listă`}
           </button>
         </div>
       )}
